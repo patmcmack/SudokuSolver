@@ -7,14 +7,13 @@ from PIL import Image, ImageOps
 import pyautogui
 import cv2
 import numpy as np
-import time
 import easyocr
 
 reader = easyocr.Reader(['en'])
 
 def readSudoku():
 
-    pRegion = (370, 875, 500, 500)
+    pRegion = (370, 875, 500, 500) # Hardcode location for now
     pLoc = np.full((9,9), np.nan, dtype='f,f') # screen location of each box
 
     img = pyautogui.screenshot(region=pRegion)
@@ -128,11 +127,9 @@ def inputSolution(unSolved, solution, pLoc):
                 # Click box of interest
                 loc = pLoc[row][col]
                 pyautogui.click(x=loc[0], y=loc[1])
-                # time.sleep(.05)
 
                 # Write number
                 pyautogui.typewrite(str(int(solution[row][col])))
-                # time.sleep(1)
 
 
 if __name__ == "__main__":
@@ -150,7 +147,6 @@ if __name__ == "__main__":
     print(solution)
 
     # Auto input solution to sudoku.com
-    # print(pLoc)
     # pyautogui.displayMousePosition()
     if solution:
         inputSolution(unSolved, puzzle, pLoc)
